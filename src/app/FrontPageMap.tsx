@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import { Layer, Map, MapLayerMouseEvent, Source } from "react-map-gl";
 import type { FillLayer } from "react-map-gl";
 
+import MapLegend from "./MapLegend";
+
 const hoveredHighlightLayer: FillLayer = {
   id: "hovered-features",
   type: "fill",
@@ -17,37 +19,51 @@ const hoveredHighlightLayer: FillLayer = {
 
 export default function FrontPageMap() {
   const [hoveredFeatures, setHoveredFeatures] = useState<string[] | []>([]);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[] | []>([]); // features that user selects with click event
 
+  // handler that highlights polygons if user hovers over them
   const highlightPolygons = useCallback((event: MapLayerMouseEvent): void => {
-    const featuresUnderMouse = event.features || [];
-
-    const featureNames =
-      featuresUnderMouse.length > 0
-        ? featuresUnderMouse.map((feature) => feature?.properties?.Name)
+    const featuresUnderMouse =
+      event.features && event.features.length > 0
+        ? event.features.map((feature) => feature?.properties?.Name)
         : [];
 
-    setHoveredFeatures(featureNames);
+    setHoveredFeatures(featuresUnderMouse); // an array of feature.properties.Name
   }, []);
 
+  const handleClick = useCallback(
+    (event: MapLayerMouseEvent) => {
+      setSelectedFeatures(hoveredFeatures);
+    },
+    [hoveredFeatures]
+  );
+
   return (
-    <Map
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
-      initialViewState={{
-        longitude: -100,
-        latitude: 40,
-        zoom: 3.5,
-      }}
-      interactiveLayerIds={["territories", "Territories_Live"]}
-      mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
-      onMouseMove={highlightPolygons}
-      style={{ width: "100vw", height: "100vh" }}
-    >
-      <Source type="vector" url="mapbox://nativeland.Territories_Live_tileset">
-        <Layer
-          {...hoveredHighlightLayer}
-          filter={["in", "Name", ...hoveredFeatures]}
-        />
-      </Source>
-    </Map>
+    <>
+      <Map
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+        initialViewState={{
+          longitude: -100,
+          latitude: 40,
+          zoom: 3.5,
+        }}
+        interactiveLayerIds={["territories", "Territories_Live"]}
+        mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
+        onClick={handleClick}
+        onMouseMove={highlightPolygons}
+        style={{ width: "100vw", height: "100vh" }}
+      >
+        <Source
+          type="vector"
+          url="mapbox://nativeland.Territories_Live_tileset"
+        >
+          <Layer
+            {...hoveredHighlightLayer}
+            filter={["in", "Name", ...hoveredFeatures]}
+          />
+        </Source>
+      </Map>
+      <MapLegend selectedFeatures={selectedFeatures} />
+    </>
   );
 }
