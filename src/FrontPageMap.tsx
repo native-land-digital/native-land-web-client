@@ -2,6 +2,10 @@ import { useCallback, useState } from "react";
 import { Layer, Map, MapLayerMouseEvent, Source } from "react-map-gl";
 import type { FillLayer } from "react-map-gl";
 
+import MapLegend from "./MapLegend";
+
+import "mapbox-gl/dist/mapbox-gl.css";
+
 const hoveredHighlightLayer: FillLayer = {
   id: "hovered-features",
   type: "fill",
@@ -45,7 +49,7 @@ export default function FrontPageMap() {
         mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
         onClick={handleClick}
         onMouseMove={highlightPolygons}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "100vh", cursor: "pointer" }}
       >
         <Source
           type="vector"
@@ -56,6 +60,7 @@ export default function FrontPageMap() {
             filter={["in", "Name", ...hoveredFeatures]}
           />
         </Source>
+        <MapLegend selectedFeatures={selectedFeatures} />
       </Map>
     </>
   );
