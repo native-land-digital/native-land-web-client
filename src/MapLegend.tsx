@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function MapLegend({
   selectedFeatures,
@@ -7,20 +8,19 @@ export default function MapLegend({
 }) {
   const featureLinks =
     selectedFeatures.length > 0
-      ? selectedFeatures.map((feature) => (
-          // <li>
-          //   <a href={`/features/${feature}`}>{feature}</a>
-          // </li>
-          <Typography variant="button" display="block" gutterBottom>
-            {feature}
-            {/* <a href={`/features/${feature}`}>{feature}</a> */}
+      ? selectedFeatures.map((feature, index) => (
+          <Typography key={index} variant="button" display="block" gutterBottom>
+            <Link to={`/features/${feature}`}>{feature}</Link>
           </Typography>
         ))
       : "";
 
+  const isDisplayed = selectedFeatures.length > 0 ? "block" : "none";
+
   return (
     <Box
       sx={{
+        display: isDisplayed,
         bgcolor: "background.paper",
         padding: "1rem",
         position: "absolute",
@@ -32,10 +32,4 @@ export default function MapLegend({
       {featureLinks}
     </Box>
   );
-
-  // return (
-  //   <nav id="map-legend">
-  //     <ul>{featureLinks}</ul>
-  //   </nav>
-  // );
 }
