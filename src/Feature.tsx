@@ -1,3 +1,18 @@
+import { useLocation } from "react-router-dom";
+
 export default function Feature() {
-  return <>This is the feature page, woo</>;
+  const {
+    state: { feature },
+  } = useLocation();
+
+  return (
+    <>
+      Feature Data:
+      <ul>
+        <li>{feature.name}</li>
+        <li>{feature.slug}</li>
+        <li>{feature.id}</li>
+      </ul>
+    </>
+  );
 }

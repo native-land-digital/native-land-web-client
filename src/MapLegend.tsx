@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 export default function MapLegend({
   selectedFeatures,
 }: {
-  selectedFeatures: string[] | [];
+  selectedFeatures: { name: string; id: string | number; slug: string }[] | [];
 }) {
   const featureLinks =
     selectedFeatures.length > 0
       ? selectedFeatures.map((feature, index) => (
           <Typography key={index} variant="button" display="block" gutterBottom>
-            <Link to={`/features/${feature}`}>{feature}</Link>
+            {/* use the Link component to store feature data in browser's history state for Feature component */}
+            <Link to={`/features/${feature.slug}`} state={{ feature }}>
+              {feature.name}
+            </Link>
           </Typography>
         ))
       : "";
