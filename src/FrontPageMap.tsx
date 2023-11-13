@@ -19,22 +19,36 @@ const hoveredHighlightLayer: FillLayer = {
 };
 
 export default function FrontPageMap() {
-  const [hoveredFeatures, setHoveredFeatures] = useState<string[] | []>([]);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[] | []>([]); // features that user selects with click event
+  // const [hoveredFeatures, setHoveredFeatures] = useState<string[] | []>([]);
+  const [hoveredFeatures, setHoveredFeatures] = useState<
+    { name: string; id: string | number; slug: string }[] | []
+  >([]);
+  const [selectedFeatures, setSelectedFeatures] = useState<
+    { name: string; id: string | number; slug: string }[] | []
+  >([]); // features that user selects with click event
 
   // handler that highlights polygons if user hovers over them
   const highlightPolygons = useCallback((event: MapLayerMouseEvent): void => {
     const featuresUnderMouse =
       event.features && event.features.length > 0
-        ? event.features.map((feature) => feature?.properties?.Name)
+        ? event.features.map((feature) => {
+            // capture name, id, and slug so that <Feature> will have access to it in <MapLegend> links
+            return {
+              name: feature?.properties?.Name,
+              id: feature?.properties?.id,
+              slug: feature?.properties?.Slug,
+            };
+          })
         : [];
 
-    setHoveredFeatures(featuresUnderMouse); // an array of feature.properties.Name
+    setHoveredFeatures(featuresUnderMouse);
   }, []);
 
   const handleClick = useCallback(() => {
-    setSelectedFeatures(hoveredFeatures);
+    setSelectedFeatures(hoveredFeatures); // an array of feature objects, eg. { id: 36082, name: Očhéthi Šakówiŋ, slug: oceti-sakowin-sioux }
   }, [hoveredFeatures]);
+
+  const hoveredFeatureNames = hoveredFeatures.map((feature) => feature.name); // array of feature names for the hovered features' layer filter
 
   return (
     <>
@@ -57,7 +71,7 @@ export default function FrontPageMap() {
         >
           <Layer
             {...hoveredHighlightLayer}
-            filter={["in", "Name", ...hoveredFeatures]}
+            filter={["in", "Name", ...hoveredFeatureNames]}
           />
         </Source>
         <MapLegend selectedFeatures={selectedFeatures} />
