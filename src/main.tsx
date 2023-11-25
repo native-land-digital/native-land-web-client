@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Grid from "@mui/material/Unstable_Grid2";
 
 import FrontPageMap from "./FrontPageMap.tsx";
 import Feature from "./Feature.tsx";
@@ -14,10 +13,12 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+const navBarHeight = "6.5rem"; // used for dynamic CSS calculation: FrontPageMap's height is 100vh - navBarHeight.
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <FrontPageMap />,
+    element: <FrontPageMap navBarHeight={navBarHeight} />,
     // errorElement: null // todo
   },
   {
@@ -28,13 +29,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Grid container sx={{ height: "100vh" }}>
-      <Grid xs={12} sx={{ height: "7vh" }}>
-        <NavBar />
-      </Grid>
-      <Grid xs={12} sx={{ height: "93vh" }}>
-        <RouterProvider router={router} />
-      </Grid>
-    </Grid>
+    <NavBar navBarHeight={navBarHeight} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

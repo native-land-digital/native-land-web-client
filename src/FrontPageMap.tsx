@@ -18,7 +18,11 @@ const hoveredHighlightLayer: FillLayer = {
   },
 };
 
-export default function FrontPageMap() {
+export default function FrontPageMap({
+  navBarHeight,
+}: {
+  navBarHeight: string;
+}) {
   // const [hoveredFeatures, setHoveredFeatures] = useState<string[] | []>([]);
   const [hoveredFeatures, setHoveredFeatures] = useState<
     { name: string; id: string | number; slug: string }[] | []
@@ -63,6 +67,7 @@ export default function FrontPageMap() {
         mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
         onClick={handleClick}
         onMouseMove={highlightPolygons}
+        style={{ height: `calc(100vh - ${navBarHeight})` }}
       >
         <Source
           type="vector"

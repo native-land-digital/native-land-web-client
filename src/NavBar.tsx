@@ -1,20 +1,17 @@
 import "./NavBar.css";
-import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-export default function NavBar() {
+export default function NavBar({ navBarHeight }: { navBarHeight: string }) {
   return (
-    <Box sx={{ height: "100%" }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h2" sx={{ padding: "0.5rem", width: "100%" }}>
-            Native Land Digital
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="static" sx={{ height: navBarHeight }}>
+      <Toolbar>
+        <Typography variant="h2" sx={{ padding: "0.5rem", width: "100%" }}>
+          Native Land Digital
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 
   // return (
