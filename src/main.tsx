@@ -28,11 +28,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Grid container>
-      <Grid xs={12}>
+    <Grid container sx={{ height: "100vh" }}>
+      <Grid xs={12} sx={{ height: "7vh" }}>
         <NavBar />
       </Grid>
-      <Grid xs={12}>
+      <Grid xs={12} sx={{ height: "93vh" }}>
         <RouterProvider router={router} />
       </Grid>
     </Grid>

@@ -63,7 +63,6 @@ export default function FrontPageMap() {
         mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
         onClick={handleClick}
         onMouseMove={highlightPolygons}
-        style={{ width: "100vw", height: "100vh", cursor: "pointer" }}
       >
         <Source
           type="vector"
