@@ -54,19 +54,42 @@ export default function FrontPageMap({
 
   const hoveredFeatureNames = hoveredFeatures.map((feature) => feature.name); // array of feature names for the hovered features' layer filter
 
+  const getRandomStartingPosition = () => {
+    if (window.innerWidth < 500) {
+      return {
+        longitude: -103.4216601,
+        latitude: 49.2173029,
+        zoom: 2,
+      };
+    }
+
+    const startingPositions = [
+      { longitude: -100.1953125, latitude: 47.27922900257082 },
+      { longitude: 140.625, latitude: -27.68352808378776 },
+      { longitude: -68.5546875, latitude: -19.973348786110602 },
+    ];
+
+    const randomIndex = Math.floor(Math.random() * startingPositions.length);
+
+    return {
+      ...startingPositions[randomIndex],
+      zoom: 2.5,
+    };
+  };
+
   return (
     <>
       <Map
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
+        fog={{}} // defaults to starry background
         initialViewState={{
-          longitude: -100,
-          latitude: 40,
-          zoom: 3.5,
+          ...getRandomStartingPosition(),
         }}
         interactiveLayerIds={["territories", "Territories_Live"]}
         mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
         onClick={handleClick}
         onMouseMove={highlightPolygons}
+        projection={{ name: "globe" }}
         style={{ height: `calc(100vh - ${navBarHeight})` }}
       >
         <Source
