@@ -1,4 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import {
+  List,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+  styled,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function MapLegend({
@@ -9,30 +15,62 @@ export default function MapLegend({
   const featureLinks =
     selectedFeatures.length > 0
       ? selectedFeatures.map((feature, index) => (
-          <Typography key={index} variant="button" display="block" gutterBottom>
-            {/* use the Link component to store feature data in browser's history state for Feature component */}
-            <Link to={`/features/${feature.slug}`} state={{ feature }}>
-              {feature.name}
+          <ListItemButton key={index} sx={{ cursor: "pointer" }} divider>
+            <Link to={`/features/${feature.slug}`} style={{ width: "100%" }}>
+              <ListItemText
+                primary={feature.name}
+                sx={{ color: "common.white" }}
+                primaryTypographyProps={{ style: { fontSize: "1.7rem" } }}
+                // inset
+              />
             </Link>
-          </Typography>
+          </ListItemButton>
         ))
-      : "";
+      : [];
 
   const isDisplayed = selectedFeatures.length > 0 ? "block" : "none";
 
+  // const FeaturesList = styled(List)({
+  //   bgcolor: "info.dark",
+  //   position: "absolute",
+  //   top: "1.5rem",
+  //   left: "1.5rem",
+  //   zIndex: "modal",
+  //   width: "30rem",
+  //   "& .MuiListItemText-root": {
+  //     color: "common.white"
+  //   },
+  //   "& .MuiListSubheader-root": {
+  //     bgcolor: "grey.800",
+  //     color: "info.light",
+  //     fontSize: "1.7rem",
+  //   }
+  // });
+
   return (
-    <Box
+    <List
       sx={{
         display: isDisplayed,
-        bgcolor: "background.paper",
-        padding: "1rem",
+        bgcolor: "info.dark",
         position: "absolute",
-        top: "1rem",
-        left: "1rem",
+        top: "1.5rem",
+        left: "1.5rem",
         zIndex: "modal",
+        width: "30rem",
       }}
+      component="nav"
+      disablePadding
     >
+      <ListSubheader
+        sx={{
+          bgcolor: "grey.800",
+          color: "info.light",
+          fontSize: "1.7rem",
+        }}
+      >
+        Selected Features
+      </ListSubheader>
       {featureLinks}
-    </Box>
+    </List>
   );
 }
