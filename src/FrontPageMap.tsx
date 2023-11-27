@@ -101,8 +101,11 @@ export default function FrontPageMap({
             filter={["in", "Name", ...hoveredFeatureNames]}
           />
         </Source>
-        <MapLegend selectedFeatures={selectedFeatures} />
       </Map>
+      <MapLegend
+        navBarHeight={navBarHeight}
+        selectedFeatures={selectedFeatures}
+      />
     </>
   );
 }
