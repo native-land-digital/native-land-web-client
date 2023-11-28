@@ -1,18 +1,17 @@
-import { useLocation } from "react-router-dom";
+// import { useEffect } from "react";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+
+import { useLoaderData } from "react-router-dom";
 
 export default function Feature() {
-  const {
-    state: { feature },
-  } = useLocation();
+  const { feature } = useLoaderData();
+
+  console.log(feature);
 
   return (
-    <>
-      Feature Data:
-      <ul>
-        <li>{feature.name}</li>
-        <li>{feature.slug}</li>
-        <li>{feature.id}</li>
-      </ul>
-    </>
+    <Container component="main" maxWidth="lg">
+      <Paper variant="outlined"></Paper>
+    </Container>
   );
 }

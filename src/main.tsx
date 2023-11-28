@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import FrontPageMap from "./FrontPageMap.tsx";
 import Feature from "./Feature.tsx";
+import { loader as featureLoader } from "./loaders/features.ts";
 import NavBar from "./NavBar.tsx";
 
 import "./index.css";
@@ -22,8 +23,9 @@ const router = createBrowserRouter([
     // errorElement: null // todo
   },
   {
-    path: "features/:feature",
+    path: "features/:slug",
     element: <Feature />,
+    loader: featureLoader,
   },
 ]);
 
