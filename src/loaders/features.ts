@@ -1,10 +1,14 @@
-export async function getFeature(slug: string) {
-  const response = await fetch(`/api/feature/${slug}`);
-  const message = await response.json();
-  return message;
+import { LoaderFunctionArgs } from "react-router-dom";
+
+export async function getFeature(slug: string | undefined) {
+  const response = await fetch(`/api/feature/${slug}`); // fetch individual feature JSON from server API
+  const feature = await response.json();
+  return feature.data;
 }
 
-export async function loader({ params }) {
+// features loader for React Router routes
+// used for routes at /features
+export async function loader({ params }: LoaderFunctionArgs) {
   const feature = await getFeature(params.slug);
   return { feature };
 }
