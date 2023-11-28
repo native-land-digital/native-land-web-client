@@ -799,7 +799,7 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/geojson@*":
+"@types/geojson@*", "@types/geojson@^7946.0.13":
   version "7946.0.13"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.13.tgz#e6e77ea9ecf36564980a861e24e62a095988775e"
   integrity sha512-bmrNrgKMOhM3WsafmbGmC+6dsF2Z308vLFsQ3a/bT8X8Sv5clVYpPars/UPq+sAaJP+5OoLAYgwbkS5QEJdLUQ==
