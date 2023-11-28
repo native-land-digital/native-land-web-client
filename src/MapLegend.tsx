@@ -2,11 +2,10 @@ import {
   List,
   ListProps,
   ListItemButton,
-  ListItemText,
   ListSubheader,
   styled,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function MapLegend({
   navBarHeight,
@@ -18,17 +17,18 @@ export default function MapLegend({
   const featureLinks =
     selectedFeatures.length > 0
       ? selectedFeatures.map((feature, index) => (
-          <ListItemButton key={index} divider>
-            <Link to={`/features/${feature.slug}`} style={{ width: "100%" }}>
-              <ListItemText
-                primary={feature.name}
-                primaryTypographyProps={{ style: { fontSize: "1.7rem" } }}
-              />
-            </Link>
+          <ListItemButton
+            key={index}
+            component={RouterLink} // integrating React Router link with material UI
+            to={`/features/${feature.slug}`}
+            divider
+          >
+            {feature.name}
           </ListItemButton>
         ))
       : [];
 
+  // material UI styled() utility
   const FeaturesList = styled(List)<ListProps>(({ theme }) => ({
     backgroundColor: theme.palette.info.dark,
     cursor: "pointer",
@@ -37,8 +37,10 @@ export default function MapLegend({
     top: `calc(${navBarHeight} + 1.5rem)`,
     left: "1.5rem",
     width: "30rem",
-    "& .MuiListItemText-root": {
+    "& .MuiListItemButton-root": {
       color: theme.palette.common.white,
+      fontFamily: theme.typography.fontFamily,
+      fontSize: "1.7rem",
     },
     "& .MuiListSubheader-root": {
       backgroundColor: theme.palette.grey[800],
@@ -51,7 +53,6 @@ export default function MapLegend({
     <FeaturesList
       sx={{
         display: selectedFeatures.length > 0 ? "block" : "none",
-        zIndex: "modal",
       }}
       disablePadding
     >
