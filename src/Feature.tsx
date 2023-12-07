@@ -28,8 +28,10 @@ const getChipLabel = (category: string) => {
 
 export default function Feature() {
   const {
-    feature: { polygon, category, name },
+    feature: { polygon, polygon_style, category, name },
   } = useLoaderData() as { feature: NativeLandFeature };
+
+  console.log(polygon_style);
 
   const mapRef = useRef<MapRef>(null);
 
@@ -85,7 +87,14 @@ export default function Feature() {
           }}
         >
           <Source type="geojson" data={polygon}>
-            <Layer id="feature-polygon" type="fill" />
+            <Layer
+              id="feature-polygon"
+              type="fill"
+              paint={{
+                "fill-color": polygon_style.color,
+                "fill-opacity": 0.75,
+              }}
+            />
           </Source>
         </Map>
       </Paper>

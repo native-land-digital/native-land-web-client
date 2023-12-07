@@ -5,7 +5,7 @@
 interface NativeLandFeature {
   name: string;
   polygon: Feature;
-  polygon_style: null;
+  polygon_style: Record<color<string>>;
   pronunciation: null;
   category: "territories" | "languages" | "treaties";
   official_websites: null;
