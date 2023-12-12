@@ -7,14 +7,20 @@ interface NativeLandFeature {
   polygon: Feature;
   polygon_style: FeaturePolygonStyle;
   pronunciation: null;
-  category: "territories" | "languages" | "treaties";
-  official_websites: null;
-  created_at: Date;
-  last_modified_at: Date;
+  category: featureCategory;
+  created_at: string;
+  last_modified_at: string;
+  wordpress_created_at: string;
+  wordpress_last_modified_at: string;
   related: null;
   sources: string[];
   changelog: FeatureChange[];
+  official_websites: FeatureOfficialWebsite[];
 }
+
+type featureCategory = "territories" | "languages" | "treaties";
+
+type infoChipType = "category" | "createdAt" | "lastModified";
 
 // date and string pair describing content changes made by admin to individual <Feature> pages
 interface FeatureChange {

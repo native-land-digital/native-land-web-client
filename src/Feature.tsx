@@ -1,38 +1,37 @@
 import { useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Map, MapRef, Layer, Source } from "react-map-gl";
-import bbox from "@turf/bbox";
 import { decode } from "html-entities";
 
-import Chip from "@mui/material/Chip";
+import InfoChip from "./InfoChip";
+
+// TypeScript compiler can't find types for turf, and declares the error below
+// seems like the fix will be included in an update by TurfJS team
+// see https://github.com/Turfjs/turf/issues/2307
+import bbox from "@turf/bbox";
+
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import LandscapeIcon from "@mui/icons-material/Landscape";
-
 import { grey } from "@mui/material/colors";
-
-const getChipLabel = (category: string) => {
-  switch (category) {
-    case "territories":
-      return "Territory";
-
-    case "languages":
-      return "Language";
-
-    case "treaties":
-      return "Treaty";
-  }
-};
 
 export default function Feature() {
   const {
-    feature: { polygon, polygon_style, category, name },
+    feature: {
+      polygon,
+      polygon_style,
+      category,
+      name,
+      wordpress_created_at,
+      wordpress_last_modified_at,
+      // sources,
+      // changelog,
+      // official_websites,
+    },
   } = useLoaderData() as { feature: NativeLandFeature };
 
-  console.log(polygon_style);
-
+  // once the map has rendered, zoom and pan to the feature's polygon
   const mapRef = useRef<MapRef>(null);
 
   const zoomToBounds = () => {
@@ -46,8 +45,6 @@ export default function Feature() {
       { padding: 40, duration: 1000 }
     );
   };
-
-  const chipLabel = getChipLabel(category);
 
   return (
     <Container component="main" maxWidth="lg">
@@ -68,11 +65,23 @@ export default function Feature() {
         >
           {decode(name)}
         </Typography>
-        <Chip
-          color="primary"
-          icon={<LandscapeIcon />}
-          sx={{ mb: "1rem", ml: "1rem", px: "1rem" }}
-          label={chipLabel}
+        <InfoChip
+          category={category}
+          infoChipType="category"
+          wordpress_created_at={wordpress_created_at}
+          wordpress_last_modified_at={wordpress_last_modified_at}
+        />
+        <InfoChip
+          category={category}
+          infoChipType="createdAt"
+          wordpress_created_at={wordpress_created_at}
+          wordpress_last_modified_at={wordpress_last_modified_at}
+        />
+        <InfoChip
+          category={category}
+          infoChipType="lastModified"
+          wordpress_created_at={wordpress_created_at}
+          wordpress_last_modified_at={wordpress_last_modified_at}
         />
         <Map
           mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
