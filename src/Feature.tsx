@@ -4,6 +4,7 @@ import { Map, MapRef, Layer, Source } from "react-map-gl";
 import { decode } from "html-entities";
 
 import InfoChip from "./InfoChip";
+import ChangeLogTable from "./ChangeLogTable";
 
 // TypeScript compiler can't find types for turf, and declares the error below
 // seems like the fix will be included in an update by TurfJS team
@@ -26,7 +27,7 @@ export default function Feature() {
       wordpress_created_at,
       wordpress_last_modified_at,
       // sources,
-      // changelog,
+      changelog,
       // official_websites,
     },
   } = useLoaderData() as { feature: NativeLandFeature };
@@ -106,6 +107,7 @@ export default function Feature() {
             />
           </Source>
         </Map>
+        {changelog && <ChangeLogTable changelog={changelog} />}
       </Paper>
     </Container>
   );
