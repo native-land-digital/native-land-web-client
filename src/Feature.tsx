@@ -5,6 +5,7 @@ import { decode } from "html-entities";
 
 import InfoChip from "./InfoChip";
 import ChangeLogTable from "./ChangeLogTable";
+import WebsitesList from "./WebsitesList";
 
 // TypeScript compiler can't find types for turf, and declares the error below
 // seems like the fix will be included in an update by TurfJS team
@@ -28,7 +29,7 @@ export default function Feature() {
       wordpress_last_modified_at,
       // sources,
       changelog,
-      // official_websites,
+      official_websites,
     },
   } = useLoaderData() as { feature: NativeLandFeature };
 
@@ -107,7 +108,10 @@ export default function Feature() {
             />
           </Source>
         </Map>
-        {changelog && <ChangeLogTable changelog={changelog} />}
+        {official_websites?.length > 0 && (
+          <WebsitesList official_websites={official_websites} />
+        )}
+        {changelog?.length > 0 && <ChangeLogTable changelog={changelog} />}
       </Paper>
     </Container>
   );
