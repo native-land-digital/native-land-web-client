@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { loader as featureLoader } from "./loaders/features.ts";
 
+import App from "./App.tsx";
 import FrontPageMap from "./FrontPageMap.tsx";
 import Feature from "./Feature.tsx";
-import { loader as featureLoader } from "./loaders/features.ts";
-import NavBar from "./NavBar.tsx";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -26,13 +26,19 @@ const navBarHeight = "5rem"; // used for dynamic CSS calculation: FrontPageMap's
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <FrontPageMap navBarHeight={navBarHeight} />,
+    element: <App navBarHeight={navBarHeight} />,
     // errorElement: null // todo
-  },
-  {
-    path: "features/:slug",
-    element: <Feature />,
-    loader: featureLoader,
+    children: [
+      {
+        path: "/",
+        element: <FrontPageMap navBarHeight={navBarHeight} />,
+      },
+      {
+        path: "features/:slug",
+        element: <Feature />,
+        loader: featureLoader,
+      },
+    ],
   },
 ]);
 
@@ -40,7 +46,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline enableColorScheme />
-      <NavBar navBarHeight={navBarHeight} />
       <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
