@@ -1,10 +1,9 @@
-import {
-  List,
-  ListProps,
-  ListItemButton,
-  ListSubheader,
-  styled,
-} from "@mui/material";
+import { styled } from "@mui/material";
+import { ListProps } from "@mui/material/List";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListSubheader from "@mui/material/ListSubheader";
+
 import { Link as RouterLink } from "react-router-dom";
 
 export default function MapLegend({
