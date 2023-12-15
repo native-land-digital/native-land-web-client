@@ -1,3 +1,5 @@
+import { Link as RouterLink } from "react-router-dom";
+
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -26,10 +28,14 @@ export default function NavBar({ navBarHeight }: { navBarHeight: string }) {
               lg: "left",
               xl: "left",
             },
+            a: {
+              color: "white",
+              textDecoration: "none",
+            },
           }}
           noWrap
         >
-          Native Land Digital
+          <RouterLink to="/">Native Land Digital</RouterLink>
         </Typography>
       </Toolbar>
     </AppBar>
