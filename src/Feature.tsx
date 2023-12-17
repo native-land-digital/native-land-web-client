@@ -67,22 +67,13 @@ export default function Feature() {
         >
           {decode(name)}
         </Typography>
+        <InfoChip category={category} infoChipType="category" />
         <InfoChip
-          category={category}
-          infoChipType="category"
-          wordpress_created_at={wordpress_created_at}
-          wordpress_last_modified_at={wordpress_last_modified_at}
-        />
-        <InfoChip
-          category={category}
           infoChipType="createdAt"
           wordpress_created_at={wordpress_created_at}
-          wordpress_last_modified_at={wordpress_last_modified_at}
         />
         <InfoChip
-          category={category}
           infoChipType="lastModified"
-          wordpress_created_at={wordpress_created_at}
           wordpress_last_modified_at={wordpress_last_modified_at}
         />
         <Map
@@ -90,7 +81,7 @@ export default function Feature() {
           mapStyle="mapbox://styles/mapbox/light-v11"
           onLoad={zoomToBounds}
           ref={mapRef}
-          style={{ width: "400px", height: "400px" }}
+          style={{ width: "100%", height: "30rem" }}
           initialViewState={{
             longitude: -122.4,
             latitude: 37.8,

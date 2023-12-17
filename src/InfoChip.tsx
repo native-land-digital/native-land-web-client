@@ -1,4 +1,5 @@
 import Chip from "@mui/material/Chip";
+// import { ChipOwnProps } from "@mui/material/Chip";
 import dayjs from "dayjs";
 
 import LandscapeIcon from "@mui/icons-material/Landscape";
@@ -28,29 +29,38 @@ export default function InfoChip({
   wordpress_created_at,
   wordpress_last_modified_at,
 }: {
-  category: featureCategory;
+  category?: featureCategory;
   infoChipType: infoChipType;
-  wordpress_created_at: string;
-  wordpress_last_modified_at: string;
+  wordpress_created_at?: string;
+  wordpress_last_modified_at?: string;
 }) {
-  let color: "primary" | "success" | "secondary", icon, label;
+  let color: "primary" | "success" | "secondary",
+    icon,
+    label,
+    size = "medium" as "medium" | "small";
 
   switch (infoChipType) {
     case "category":
       color = "primary";
-      label = getChipLabel(category);
+      label = category ? getChipLabel(category) : "";
       icon = <LandscapeIcon />;
+      size = "medium";
       break;
     case "createdAt":
       color = "success";
       icon = <WbSunnyIcon />;
-      label = `Created ${getFormattedDate(wordpress_created_at)}`;
+      label = wordpress_created_at
+        ? `Created ${getFormattedDate(wordpress_created_at)}`
+        : "";
+      size = "small";
       break;
     case "lastModified":
       color = "secondary";
       icon = <EditNoteIcon />;
-      label = `Last Updated ${getFormattedDate(wordpress_last_modified_at)}`;
-
+      label = wordpress_last_modified_at
+        ? `Last Updated ${getFormattedDate(wordpress_last_modified_at)}`
+        : "";
+      size = "small";
       break;
   }
 
@@ -59,7 +69,7 @@ export default function InfoChip({
       color={color}
       icon={icon}
       label={label}
-      size="small"
+      size={size}
       sx={{ mb: "1rem", ml: "1rem", px: "1rem" }}
     />
   );
