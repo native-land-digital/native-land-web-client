@@ -10,16 +10,21 @@ import { grey } from "@mui/material/colors";
 
 export default function ChangeLogTable({
   changelog,
+  xPadding,
 }: {
   changelog: FeatureChange[];
+  xPadding: string;
 }) {
   return (
-    <TableContainer component={Paper} sx={{ bgcolor: grey[900], mt: 2 }}>
+    <TableContainer
+      component={Paper}
+      sx={{ bgcolor: grey[900], mt: 2, width: "max-content", ml: xPadding }}
+    >
       <Table aria-label="changelog" sx={{ "th, td": { color: grey[400] } }}>
         <TableHead>
           <TableRow>
             <TableCell component="th" scope="col">
-              Change
+              Changes Made
             </TableCell>
             <TableCell component="th" scope="col">
               Date
