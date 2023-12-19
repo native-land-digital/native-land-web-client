@@ -18,6 +18,8 @@ import Typography from "@mui/material/Typography";
 
 import { grey } from "@mui/material/colors";
 
+const xPadding = "2rem"; // the polygon map goes to the edges of its <Container> everything else, header, text, links etc. is indented by this amount
+
 export default function Feature() {
   const {
     feature: {
@@ -52,22 +54,27 @@ export default function Feature() {
     <Container component="main" maxWidth="lg">
       <Paper
         elevation={5}
-        sx={{ bgcolor: grey[800], px: 2, py: 3, my: "2rem" }}
+        sx={{ bgcolor: grey[800], py: 3, my: "2rem" }}
         square
       >
         <Typography
-          component="h1"
+          component="h2"
           variant="h4"
           sx={{
             color: "primary.contrastText",
             fontStyle: "italic",
-            ml: "1rem",
+            textAlign: { xs: "center", md: "left" },
+            marginLeft: xPadding,
           }}
           gutterBottom
         >
           {decode(name)}
         </Typography>
-        <InfoChip category={category} infoChipType="category" />
+        <InfoChip
+          category={category}
+          infoChipType="category"
+          xPadding={xPadding}
+        />
         <InfoChip
           infoChipType="createdAt"
           wordpress_created_at={wordpress_created_at}
@@ -100,9 +107,14 @@ export default function Feature() {
           </Source>
         </Map>
         {official_websites?.length > 0 && (
-          <WebsitesList official_websites={official_websites} />
+          <WebsitesList
+            official_websites={official_websites}
+            xPadding={xPadding}
+          />
         )}
-        {changelog?.length > 0 && <ChangeLogTable changelog={changelog} />}
+        {changelog?.length > 0 && (
+          <ChangeLogTable changelog={changelog} xPadding={xPadding} />
+        )}
       </Paper>
     </Container>
   );

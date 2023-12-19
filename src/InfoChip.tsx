@@ -28,11 +28,13 @@ export default function InfoChip({
   infoChipType,
   wordpress_created_at,
   wordpress_last_modified_at,
+  xPadding,
 }: {
   category?: featureCategory;
   infoChipType: infoChipType;
   wordpress_created_at?: string;
   wordpress_last_modified_at?: string;
+  xPadding?: string;
 }) {
   // pretty complicated syntax, this is the only way i can currently find to use infoChipType to conditionally render special features of the "Category" <InfoChip>
   const StyledChip = styled(Chip, {
@@ -41,7 +43,7 @@ export default function InfoChip({
     if (infoChipType === "category") {
       return {
         fontSize: "1rem",
-        marginLeft: 0,
+        fontWeight: "bold",
       };
     } else {
       return {};
@@ -85,7 +87,12 @@ export default function InfoChip({
       infoChipType={infoChipType}
       label={label}
       size={size}
-      sx={{ mb: "1rem", ml: "1rem", px: "1rem", maxWidth: "min-content" }}
+      sx={{
+        mb: "1rem",
+        ml: infoChipType === "category" ? xPadding : "1rem",
+        px: "1rem",
+        maxWidth: "min-content",
+      }}
     />
   );
 }

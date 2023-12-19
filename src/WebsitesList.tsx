@@ -6,8 +6,10 @@ import { grey } from "@mui/material/colors";
 
 export default function WebsitesList({
   official_websites,
+  xPadding,
 }: {
   official_websites: FeatureOfficialWebsite[];
+  xPadding: string;
 }) {
   const links = official_websites.map((website) => (
     <ListItemButton
@@ -25,7 +27,7 @@ export default function WebsitesList({
   ));
 
   return (
-    <List sx={{ bgcolor: grey[600], p: 0, mt: 2 }}>
+    <List sx={{ bgcolor: grey[600], p: 0, mt: 2, mx: xPadding }}>
       <ListSubheader
         sx={{ bgcolor: grey[500], color: "primary.contrastText", fontSize: 18 }}
         disableSticky
