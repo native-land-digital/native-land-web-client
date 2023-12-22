@@ -15,6 +15,7 @@ export default function NavBar({ navBarHeight }: { navBarHeight: string }) {
     >
       <Toolbar>
         <Typography
+          component="h1"
           variant="h6"
           sx={{
             padding: "0.5rem",
