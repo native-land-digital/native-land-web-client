@@ -1,9 +1,7 @@
 import FeatureSectionHeader from "./FeatureSectionHeader";
 
-import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import { grey } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 
 export default function WebsitesList({
   official_websites,
@@ -12,36 +10,38 @@ export default function WebsitesList({
   official_websites: FeatureOfficialWebsite[];
   xPadding: string;
 }) {
-  const links = official_websites.map((website) => (
-    <ListItemButton
-      component={"a"}
+  const links = official_websites.map((website, index) => (
+    <Link
+      color="grey.400"
+      display="block"
       href={website.webSiteUrl}
-      // target="_blank"
-      // rel="noreferrer"
-      divider
+      key={index}
+      target="_blank"
+      rel="noreferrer"
+      underline="none"
+      aria-label="External website related to this geographic feature"
+      sx={{
+        width: "max-content",
+      }}
     >
-      <ListItemText>
-        {/* sometimes the anchor text is missing in the database, the old WordPress version of Native Land defaulted to the URL in these cases */}
-        {website.webSiteTitle ? website.webSiteTitle : website.webSiteUrl}
-      </ListItemText>
-    </ListItemButton>
+      {/* sometimes the anchor text is missing in the database, the old WordPress version of Native Land defaulted to the URL in these cases */}
+      {website.webSiteTitle ? website.webSiteTitle : website.webSiteUrl}
+    </Link>
   ));
 
   return (
     <>
       <FeatureSectionHeader text="Official Websites" xPadding={xPadding} />
-      <List
+      <Box
         sx={{
-          bgcolor: grey[600],
           p: 0,
           mt: 2,
           mx: xPadding,
-          textAlign: "center",
-          width: (theme) => theme.breakpoints.values.md,
+          width: "max-content",
         }}
       >
         {links}
-      </List>
+      </Box>
     </>
   );
 }
