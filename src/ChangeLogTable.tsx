@@ -1,3 +1,5 @@
+import FeatureSectionHeader from "./FeatureSectionHeader";
+
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,30 +18,33 @@ export default function ChangeLogTable({
   xPadding: string;
 }) {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ bgcolor: grey[900], mt: 2, width: "max-content", ml: xPadding }}
-    >
-      <Table aria-label="changelog" sx={{ "th, td": { color: grey[400] } }}>
-        <TableHead>
-          <TableRow>
-            <TableCell component="th" scope="col">
-              Changes Made
-            </TableCell>
-            <TableCell component="th" scope="col">
-              Date
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {changelog.map((change, index) => (
-            <TableRow key={index} sx={{ "&:last-child td": { border: 0 } }}>
-              <TableCell>{change.changeText}</TableCell>
-              <TableCell>{change.changeDate}</TableCell>
+    <>
+      <FeatureSectionHeader text="Changelog" xPadding={xPadding} />
+      <TableContainer
+        component={Paper}
+        sx={{ bgcolor: grey[900], mt: 2, width: "max-content", ml: xPadding }}
+      >
+        <Table aria-label="changelog" sx={{ "th, td": { color: grey[400] } }}>
+          <TableHead>
+            <TableRow>
+              <TableCell component="th" scope="col">
+                Changes Made
+              </TableCell>
+              <TableCell component="th" scope="col">
+                Date
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {changelog.map((change, index) => (
+              <TableRow key={index} sx={{ "&:last-child td": { border: 0 } }}>
+                <TableCell>{change.changeText}</TableCell>
+                <TableCell>{change.changeDate}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

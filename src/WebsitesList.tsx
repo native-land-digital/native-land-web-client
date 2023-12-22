@@ -1,7 +1,8 @@
+import FeatureSectionHeader from "./FeatureSectionHeader";
+
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListSubheader from "@mui/material/ListSubheader";
 import { grey } from "@mui/material/colors";
 
 export default function WebsitesList({
@@ -27,14 +28,20 @@ export default function WebsitesList({
   ));
 
   return (
-    <List sx={{ bgcolor: grey[600], p: 0, mt: 2, mx: xPadding }}>
-      <ListSubheader
-        sx={{ bgcolor: grey[500], color: "primary.contrastText", fontSize: 18 }}
-        disableSticky
+    <>
+      <FeatureSectionHeader text="Official Websites" xPadding={xPadding} />
+      <List
+        sx={{
+          bgcolor: grey[600],
+          p: 0,
+          mt: 2,
+          mx: xPadding,
+          textAlign: "center",
+          width: (theme) => theme.breakpoints.values.md,
+        }}
       >
-        Official Websites
-      </ListSubheader>
-      {links}
-    </List>
+        {links}
+      </List>
+    </>
   );
 }
