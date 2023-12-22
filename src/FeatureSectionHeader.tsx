@@ -1,11 +1,11 @@
 import Typography from "@mui/material/Typography";
 
 export default function FeatureSectionHeader({
-  xPadding,
   text,
+  xPadding,
 }: {
-  xPadding: string;
   text: string;
+  xPadding: number;
 }) {
   return (
     <Typography
@@ -14,7 +14,7 @@ export default function FeatureSectionHeader({
       sx={{
         color: "primary.contrastText",
         fontStyle: "italic",
-        mx: xPadding,
+        mx: xPadding + "rem",
         mt: "1rem",
       }}
     >

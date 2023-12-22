@@ -8,7 +8,7 @@ export default function WebsitesList({
   xPadding,
 }: {
   official_websites: FeatureOfficialWebsite[];
-  xPadding: string;
+  xPadding: number;
 }) {
   const links = official_websites.map((website, index) => (
     <Link
@@ -36,7 +36,7 @@ export default function WebsitesList({
         sx={{
           p: 0,
           mt: 2,
-          mx: xPadding,
+          mx: xPadding * 2 + "rem",
           width: "max-content",
         }}
       >

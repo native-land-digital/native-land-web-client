@@ -18,7 +18,9 @@ import Typography from "@mui/material/Typography";
 
 import { grey } from "@mui/material/colors";
 
-const xPadding = "2rem"; // the polygon map goes to the edges of its <Container> everything else, header, text, links etc. is indented by this amount
+// the polygon map goes to the edges of its <Container> everything else, header, text, links etc. is indented by this amount
+// starts as number, gets translated into rem units in individual components
+const xPadding = 2;
 
 export default function Feature() {
   const {

@@ -15,7 +15,7 @@ export default function ChangeLogTable({
   xPadding,
 }: {
   changelog: FeatureChange[];
-  xPadding: string;
+  xPadding: number;
 }) {
   return (
     <>
