@@ -22,7 +22,12 @@ export default function ChangeLogTable({
       <FeatureSectionHeader text="Changelog" xPadding={xPadding} />
       <TableContainer
         component={Paper}
-        sx={{ bgcolor: grey[900], mt: 2, width: "max-content", ml: xPadding }}
+        sx={{
+          bgcolor: grey[900],
+          mt: 2,
+          width: (theme) => theme.breakpoints.values.sm,
+          ml: xPadding * 2 + "rem",
+        }}
       >
         <Table aria-label="changelog" sx={{ "th, td": { color: grey[400] } }}>
           <TableHead>

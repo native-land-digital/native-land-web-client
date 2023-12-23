@@ -66,7 +66,7 @@ export default function Feature() {
             color: "primary.contrastText",
             fontStyle: "italic",
             textAlign: { xs: "center", md: "left" },
-            marginLeft: xPadding,
+            marginLeft: xPadding + "rem",
           }}
           gutterBottom
         >
@@ -90,7 +90,7 @@ export default function Feature() {
           mapStyle="mapbox://styles/mapbox/light-v11"
           onLoad={zoomToBounds}
           ref={mapRef}
-          style={{ width: "100%", height: "30rem" }}
+          style={{ width: "100%", height: "30rem", marginBottom: "3rem" }}
           initialViewState={{
             longitude: -122.4,
             latitude: 37.8,
