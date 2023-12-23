@@ -18,9 +18,10 @@ export default function WebsitesList({
       key={index}
       target="_blank"
       rel="noreferrer"
-      underline="none"
+      underline="hover"
       aria-label="External website related to this geographic feature"
       sx={{
+        fontSize: "1.2rem",
         width: "max-content",
       }}
     >
