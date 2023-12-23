@@ -12,9 +12,9 @@ const hoveredHighlightLayer: FillLayer = {
   source: "",
   "source-layer": "Territories_Live",
   paint: {
-    "fill-opacity": 0.3,
-    "fill-outline-color": "#fff",
-    "fill-color": "black",
+    "fill-opacity": 0.5,
+    "fill-outline-color": "black",
+    "fill-color": "white",
   },
 };
 
