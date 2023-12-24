@@ -17,6 +17,10 @@ export default function ChangeLogTable({
   changelog: FeatureChange[];
   xPadding: number;
 }) {
+  // for some reason, the WordPress database has changelog entries that are empty values
+  // so, filter them out:
+  changelog = changelog.filter((change) => change.changeText);
+
   return (
     <>
       <FeatureSectionHeader text="Changelog" xPadding={xPadding} />
@@ -27,6 +31,7 @@ export default function ChangeLogTable({
           mt: 2,
           width: (theme) => theme.breakpoints.values.sm,
           ml: xPadding * 2 + "rem",
+          mb: 3,
         }}
       >
         <Table aria-label="changelog" sx={{ "th, td": { color: grey[400] } }}>
