@@ -29,8 +29,11 @@ export default function ChangeLogTable({
         sx={{
           bgcolor: grey[900],
           mt: 2,
-          width: (theme) => theme.breakpoints.values.sm,
-          ml: xPadding * 2 + "rem",
+          width: {
+            xs: "80%",
+            md: "90%",
+          },
+          mx: "auto",
           mb: 3,
         }}
       >

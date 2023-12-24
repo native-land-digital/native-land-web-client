@@ -43,12 +43,16 @@ export default function WebsitesList({
         sx={{
           mt: 2,
           mb: 4,
-          mx: xPadding * 2 + "rem",
-          width: "max-content",
+          mx: { xs: 0, md: xPadding * 2 + "rem" },
+          pl: { xs: xPadding * 2 + "rem", md: 0 },
+          width: { xs: "100%", md: "max-content" },
           listStyleType: "disc",
           "& .MuiListItem-root": {
             display: "list-item",
             paddingLeft: "0.5rem",
+          },
+          "& .MuiListItem-root a": {
+            width: "100%",
           },
           "& .MuiListItem-root::marker": {
             color: (theme) => theme.palette.grey[400],

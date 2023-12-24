@@ -56,7 +56,7 @@ export default function Feature() {
   return (
     <Container
       component="main"
-      sx={{ m: { xs: 0, lg: "auto" }, maxWidth: { xs: "100%", md: "65rem" } }}
+      sx={{ m: { xs: 0, lg: "auto" }, maxWidth: { xs: "100%", lg: "65rem" } }}
       disableGutters
     >
       <Paper
