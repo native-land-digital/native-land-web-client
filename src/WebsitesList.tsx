@@ -25,6 +25,9 @@ export default function WebsitesList({
         sx={{
           fontSize: "1.2rem",
           width: "max-content",
+          "&:hover": {
+            color: (theme) => theme.palette.grey[200],
+          },
         }}
       >
         {/* sometimes the anchor text is missing in the database, the old WordPress version of Native Land defaulted to the URL in these cases */}
