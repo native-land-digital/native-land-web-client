@@ -24,10 +24,7 @@ export default function NavBar({ navBarHeight }: { navBarHeight: string }) {
             fontWeight: "light",
             textAlign: {
               xs: "center",
-              sm: "left",
               md: "left",
-              lg: "left",
-              xl: "left",
             },
             a: {
               color: "white",
