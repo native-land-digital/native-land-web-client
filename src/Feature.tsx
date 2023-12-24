@@ -12,6 +12,7 @@ import WebsitesList from "./WebsitesList";
 // see https://github.com/Turfjs/turf/issues/2307
 import bbox from "@turf/bbox";
 
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -53,11 +54,15 @@ export default function Feature() {
   };
 
   return (
-    <Container component="main" maxWidth="lg">
+    <Container
+      component="main"
+      sx={{ m: { xs: 0, lg: "auto" }, maxWidth: { xs: "100%", md: "65rem" } }}
+      disableGutters
+    >
       <Paper
         elevation={5}
-        sx={{ bgcolor: grey[800], py: 3, my: "2rem" }}
-        square
+        sx={{ bgcolor: grey[800], my: { xs: 0, lg: 5 }, py: 3 }}
+        square={false}
       >
         <Typography
           component="h2"
@@ -66,25 +71,29 @@ export default function Feature() {
             color: "primary.contrastText",
             fontStyle: "italic",
             textAlign: { xs: "center", md: "left" },
-            marginLeft: xPadding + "rem",
+            marginLeft: { xs: 0, md: xPadding + "rem" },
           }}
           gutterBottom
         >
           {decode(name)}
         </Typography>
-        <InfoChip
-          category={category}
-          infoChipType="category"
-          xPadding={xPadding}
-        />
-        <InfoChip
-          infoChipType="createdAt"
-          wordpress_created_at={wordpress_created_at}
-        />
-        <InfoChip
-          infoChipType="lastModified"
-          wordpress_last_modified_at={wordpress_last_modified_at}
-        />
+        <Box
+          sx={{
+            marginLeft: { xs: 0, md: xPadding + "rem" },
+            mb: 1.5,
+            textAlign: { xs: "center", md: "left" },
+          }}
+        >
+          <InfoChip category={category} infoChipType="category" />
+          <InfoChip
+            infoChipType="createdAt"
+            wordpress_created_at={wordpress_created_at}
+          />
+          <InfoChip
+            infoChipType="lastModified"
+            wordpress_last_modified_at={wordpress_last_modified_at}
+          />
+        </Box>
         <Map
           mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
           mapStyle="mapbox://styles/mapbox/light-v11"
