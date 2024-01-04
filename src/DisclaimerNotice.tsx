@@ -1,17 +1,22 @@
-import { useState } from "react";
-
 import Alert from "@mui/material/Alert";
 
-export default function DisclaimerNotice() {
-  const [display, setDisplay] = useState("flex");
+export default function DisclaimerNotice({
+  setDisclaimerDisplay,
+}: {
+  setDisclaimerDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const handleClose = () => {
+    localStorage.setItem("isDisclaimerClosed", "true");
+    setDisclaimerDisplay(false);
+  };
 
   return (
     <Alert
       variant="filled"
-      onClose={() => setDisplay("none")}
+      onClose={handleClose}
       icon={false}
       severity="info"
-      sx={{ borderRadius: 0, display }}
+      sx={{ borderRadius: 0 }}
     >
       <p>Welcome to Native Land Digital! 👋</p>
       <p>

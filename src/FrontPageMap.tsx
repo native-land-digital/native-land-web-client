@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Layer, Map, MapLayerMouseEvent, Source } from "react-map-gl";
 import type { FillLayer } from "react-map-gl";
 
@@ -27,13 +27,23 @@ export default function FrontPageMap({
 }: {
   navBarHeight: string;
 }) {
-  // const [hoveredFeatures, setHoveredFeatures] = useState<string[] | []>([]);
   const [hoveredFeatures, setHoveredFeatures] = useState<
     { name: string; id: string | number; slug: string }[] | []
   >([]);
+
+  // features that user selects with click event
   const [selectedFeatures, setSelectedFeatures] = useState<
     { name: string; id: string | number; slug: string }[] | []
-  >([]); // features that user selects with click event
+  >([]);
+
+  const [isDisclaimerDisplayed, setDisclaimerDisplay] = useState(false);
+
+  useEffect(() => {
+    const cookie = localStorage.getItem("isDisclaimerClosed");
+    if (cookie === null) {
+      setDisclaimerDisplay(true);
+    }
+  }, []);
 
   // handler that highlights polygons if user hovers over them
   const highlightPolygons = useCallback((event: MapLayerMouseEvent): void => {
@@ -115,7 +125,9 @@ export default function FrontPageMap({
           opacity: 0.9,
         }}
       >
-        <DisclaimerNotice />
+        {isDisclaimerDisplayed && (
+          <DisclaimerNotice setDisclaimerDisplay={setDisclaimerDisplay} />
+        )}
         <MapLegend selectedFeatures={selectedFeatures} />
       </Box>
     </>
