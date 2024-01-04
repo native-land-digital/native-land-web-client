@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { Layer, Map, MapLayerMouseEvent, Source } from "react-map-gl";
-import type { FillLayer } from "react-map-gl";
+import {
+  FillLayer,
+  Layer,
+  Map,
+  MapLayerMouseEvent,
+  Source,
+} from "react-map-gl";
 
 import Box from "@mui/system/Box";
 
@@ -9,18 +14,62 @@ import MapLegend from "./MapLegend";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-// styling for hovered features
-const hoveredHighlightLayer: FillLayer = {
-  id: "hovered-features",
-  type: "fill",
+// template FillLayer to create highlight layers for hovered, selected, etc. without repeating code
+const highlightLayerBase = {
+  type: "fill" as FillLayer["type"],
   source: "",
   "source-layer": "Territories_Live", // the name of the source tileset hosted on Mapbox
+};
+
+// styling for hovered features
+const hoveredHighlightLayer: FillLayer = {
+  ...highlightLayerBase,
+  id: "hovered-features",
   paint: {
-    "fill-opacity": 0.5,
+    "fill-opacity": 0.8,
     "fill-outline-color": "black",
     "fill-color": "white",
   },
 };
+
+const selectedHighlightLayer: FillLayer = {
+  ...highlightLayerBase,
+  id: "selected-features",
+  paint: {
+    "fill-opacity": 0.8,
+    "fill-outline-color": "white",
+    "fill-color": "blue",
+  },
+};
+
+// get starting position of map on initial pageload
+const startingPositions = [
+  { longitude: -100.1953125, latitude: 47.27922900257082 }, // north dakota, USA
+  { longitude: 140.625, latitude: -27.68352808378776 }, // south australia
+  { longitude: -68.5546875, latitude: -19.973348786110602 }, // pica, chile
+];
+
+const getRandomStartingPosition = () => {
+  if (window.innerWidth < 500) {
+    return {
+      longitude: -103.4216601,
+      latitude: 49.2173029,
+      zoom: 2,
+    };
+  }
+
+  const randomIndex = Math.floor(Math.random() * startingPositions.length);
+
+  return {
+    ...startingPositions[randomIndex],
+    zoom: 2.5,
+  };
+};
+
+// flattens an array of FrontPageMapFeature into an array of feature.names
+// this is so we can run a Mapbox GL "in" filter on these names, which AFAIK needs to be a an array of strings
+const getFeatureNames = (features: FrontPageMapFeature[]) =>
+  features.map((feature) => feature.name);
 
 export default function FrontPageMap({
   navBarHeight,
@@ -28,16 +77,18 @@ export default function FrontPageMap({
   navBarHeight: string;
 }) {
   const [hoveredFeatures, setHoveredFeatures] = useState<
-    { name: string; id: string | number; slug: string }[] | []
-  >([]);
+    FrontPageMapFeature[] | []
+  >([]); // features highlighted onMouse movements
 
-  // features that user selects with click event
   const [selectedFeatures, setSelectedFeatures] = useState<
-    { name: string; id: string | number; slug: string }[] | []
-  >([]);
+    FrontPageMapFeature[] | []
+  >([]); // features that user selects with click event
 
   const [isDisclaimerDisplayed, setDisclaimerDisplay] = useState(false);
 
+  //  user sees disclaimer notice in very first page visit:
+  //    "This map does not represent or intend to represent official or legal boundaries of any Indigenous nations."
+  //  if user closes disclaimer, this display state is persisted to localStorage, ie. they only see it once
   useEffect(() => {
     const cookie = localStorage.getItem("isDisclaimerClosed");
     if (cookie === null) {
@@ -66,30 +117,8 @@ export default function FrontPageMap({
     setSelectedFeatures(hoveredFeatures); // an array of feature objects, eg. { id: 36082, name: Očhéthi Šakówiŋ, slug: oceti-sakowin-sioux }
   }, [hoveredFeatures]);
 
-  const hoveredFeatureNames = hoveredFeatures.map((feature) => feature.name); // array of feature names for the hovered features' layer filter
-
-  const getRandomStartingPosition = () => {
-    if (window.innerWidth < 500) {
-      return {
-        longitude: -103.4216601,
-        latitude: 49.2173029,
-        zoom: 2,
-      };
-    }
-
-    const startingPositions = [
-      { longitude: -100.1953125, latitude: 47.27922900257082 },
-      { longitude: 140.625, latitude: -27.68352808378776 },
-      { longitude: -68.5546875, latitude: -19.973348786110602 },
-    ];
-
-    const randomIndex = Math.floor(Math.random() * startingPositions.length);
-
-    return {
-      ...startingPositions[randomIndex],
-      zoom: 2.5,
-    };
-  };
+  const hoveredFeatureNames = getFeatureNames(hoveredFeatures); // array of feature names for the hovered features' layer filter
+  const selectedFeatureNames = getFeatureNames(selectedFeatures);
 
   return (
     <>
@@ -110,6 +139,10 @@ export default function FrontPageMap({
           type="vector"
           url="mapbox://nativeland.Territories_Live_tileset"
         >
+          <Layer
+            {...selectedHighlightLayer}
+            filter={["in", "Name", ...selectedFeatureNames]}
+          />
           <Layer
             {...hoveredHighlightLayer}
             filter={["in", "Name", ...hoveredFeatureNames]}

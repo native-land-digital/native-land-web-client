@@ -18,6 +18,13 @@ interface NativeLandFeature {
   official_websites: FeatureOfficialWebsite[];
 }
 
+// features returned from the front page map hosted on Mapbox
+interface FrontPageMapFeature {
+  name: string;
+  id: string | number;
+  slug: string;
+}
+
 type featureCategory = "territories" | "languages" | "treaties";
 
 type infoChipType = "category" | "createdAt" | "lastModified";
