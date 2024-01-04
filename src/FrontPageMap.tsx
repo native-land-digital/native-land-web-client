@@ -2,15 +2,19 @@ import { useCallback, useState } from "react";
 import { Layer, Map, MapLayerMouseEvent, Source } from "react-map-gl";
 import type { FillLayer } from "react-map-gl";
 
+import Box from "@mui/system/Box";
+
+import DisclaimerNotice from "./DisclaimerNotice";
 import MapLegend from "./MapLegend";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
+// styling for hovered features
 const hoveredHighlightLayer: FillLayer = {
   id: "hovered-features",
   type: "fill",
   source: "",
-  "source-layer": "Territories_Live",
+  "source-layer": "Territories_Live", // the name of the source tileset hosted on Mapbox
   paint: {
     "fill-opacity": 0.5,
     "fill-outline-color": "black",
@@ -102,10 +106,18 @@ export default function FrontPageMap({
           />
         </Source>
       </Map>
-      <MapLegend
-        navBarHeight={navBarHeight}
-        selectedFeatures={selectedFeatures}
-      />
+      <Box
+        sx={{
+          position: "absolute",
+          top: `calc(${navBarHeight} + 1rem)`,
+          left: "1rem",
+          width: "25rem",
+          opacity: 0.9,
+        }}
+      >
+        <DisclaimerNotice />
+        <MapLegend selectedFeatures={selectedFeatures} />
+      </Box>
     </>
   );
 }

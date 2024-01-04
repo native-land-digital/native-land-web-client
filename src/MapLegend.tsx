@@ -7,10 +7,8 @@ import ListSubheader from "@mui/material/ListSubheader";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function MapLegend({
-  navBarHeight,
   selectedFeatures,
 }: {
-  navBarHeight: string;
   selectedFeatures: { name: string; id: string | number; slug: string }[] | [];
 }) {
   const featureLinks =
@@ -31,10 +29,6 @@ export default function MapLegend({
   const FeaturesList = styled(List)<ListProps>(({ theme }) => ({
     backgroundColor: theme.palette.info.dark,
     disablePadding: true,
-    position: "absolute",
-    top: `calc(${navBarHeight} + 1.5rem)`,
-    left: "1.5rem",
-    width: "22rem",
     "& .MuiListSubheader-root": {
       backgroundColor: theme.palette.grey[800],
       color: theme.palette.info.light,
