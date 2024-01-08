@@ -27,7 +27,7 @@ const hoveredHighlightLayer: FillLayer = {
   id: "hovered-features",
   paint: {
     "fill-opacity": 0.8,
-    "fill-outline-color": "black",
+    "fill-outline-color": "blue",
     "fill-color": "white",
   },
 };
