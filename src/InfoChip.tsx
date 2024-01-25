@@ -26,13 +26,13 @@ const getFormattedDate = (dateString: string) =>
 export default function InfoChip({
   category,
   infoChipType,
-  wordpress_created_at,
-  wordpress_last_modified_at,
+  created_at,
+  last_modified_at,
 }: {
   category?: featureCategory;
   infoChipType: infoChipType;
-  wordpress_created_at?: string;
-  wordpress_last_modified_at?: string;
+  created_at?: string;
+  last_modified_at?: string;
 }) {
   // pretty complicated syntax, this is the only way i can currently find to use infoChipType to conditionally render special features of the "Category" <InfoChip>
   const StyledChip = styled(Chip, {
@@ -63,16 +63,14 @@ export default function InfoChip({
     case "createdAt":
       color = "success";
       icon = <WbSunnyIcon />;
-      label = wordpress_created_at
-        ? `Created ${getFormattedDate(wordpress_created_at)}`
-        : "";
+      label = created_at ? `Created ${getFormattedDate(created_at)}` : "";
       size = "small";
       break;
     case "lastModified":
       color = "secondary";
       icon = <EditNoteIcon />;
-      label = wordpress_last_modified_at
-        ? `Last Updated ${getFormattedDate(wordpress_last_modified_at)}`
+      label = last_modified_at
+        ? `Last Updated ${getFormattedDate(last_modified_at)}`
         : "";
       size = "small";
       break;

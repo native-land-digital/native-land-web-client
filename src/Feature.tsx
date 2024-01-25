@@ -30,8 +30,8 @@ export default function Feature() {
       polygon_style,
       category,
       name,
-      wordpress_created_at,
-      wordpress_last_modified_at,
+      created_at,
+      last_modified_at,
       // sources,
       changelog,
       official_websites,
@@ -85,13 +85,10 @@ export default function Feature() {
           }}
         >
           <InfoChip category={category} infoChipType="category" />
-          <InfoChip
-            infoChipType="createdAt"
-            wordpress_created_at={wordpress_created_at}
-          />
+          <InfoChip infoChipType="createdAt" created_at={created_at} />
           <InfoChip
             infoChipType="lastModified"
-            wordpress_last_modified_at={wordpress_last_modified_at}
+            last_modified_at={last_modified_at}
           />
         </Box>
         <Map

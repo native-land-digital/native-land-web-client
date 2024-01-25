@@ -10,8 +10,8 @@ interface NativeLandFeature {
   category: featureCategory;
   created_at: string;
   last_modified_at: string;
-  wordpress_created_at: string;
-  wordpress_last_modified_at: string;
+  created_at: string;
+  last_modified_at: string;
   related: null;
   sources: string[];
   changelog: FeatureChange[];
