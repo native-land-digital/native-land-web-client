@@ -14,11 +14,15 @@ import MapLegend from "./MapLegend";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
+// for handling onHover feature highlights
+const mapboxTerritoriesTilesetName = import.meta.env
+  .VITE_TERRITORIES_TILESET_NAME;
+
 // template FillLayer to create highlight layers for hovered, selected, etc. without repeating code
 const highlightLayerBase = {
   type: "fill" as FillLayer["type"],
   source: "",
-  "source-layer": "Territories_Live", // the name of the source tileset hosted on Mapbox
+  "source-layer": mapboxTerritoriesTilesetName, // the name of the source tileset hosted on Mapbox
 };
 
 // styling for hovered features
@@ -128,8 +132,10 @@ export default function FrontPageMap({
         initialViewState={{
           ...getRandomStartingPosition(),
         }}
-        interactiveLayerIds={["territories", "Territories_Live"]}
-        mapStyle="mapbox://styles/nativeland/cl5sdtnnf000014mvdlefe0x9"
+        interactiveLayerIds={["territories", mapboxTerritoriesTilesetName]}
+        mapStyle={`mapbox://styles/nativeland/${
+          import.meta.env.VITE_MAPBOX_STYLE
+        }`}
         onClick={handleClick}
         onMouseMove={highlightPolygons}
         projection={{ name: "globe" }}
@@ -137,7 +143,7 @@ export default function FrontPageMap({
       >
         <Source
           type="vector"
-          url="mapbox://nativeland.Territories_Live_tileset"
+          url={`mapbox://${import.meta.env.VITE_TERRITORIES_TILESET_URL}`}
         >
           <Layer
             {...selectedHighlightLayer}
