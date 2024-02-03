@@ -2,6 +2,6 @@
 // seems like the fix will be included in an update by TurfJS team
 // see https://github.com/Turfjs/turf/issues/2307
 declare module '@turf/bbox' {
-  const bbox: any;
+  const bbox: BBox;
   export default bbox;
 }
