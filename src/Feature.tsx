@@ -7,9 +7,6 @@ import InfoChip from "./InfoChip";
 import ChangeLogTable from "./ChangeLogTable";
 import WebsitesList from "./WebsitesList";
 
-// TypeScript compiler can't find types for turf, and declares the error below
-// seems like the fix will be included in an update by TurfJS team
-// see https://github.com/Turfjs/turf/issues/2307
 import bbox from "@turf/bbox";
 
 import Box from "@mui/material/Box";
