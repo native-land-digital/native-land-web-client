@@ -48,5 +48,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <CssBaseline enableColorScheme />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

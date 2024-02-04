@@ -46,7 +46,7 @@ export default function Feature() {
         [minLng, minLat],
         [maxLng, maxLat],
       ],
-      { padding: 40, duration: 1000 }
+      { padding: 40, duration: 1000 },
     );
   };
 
