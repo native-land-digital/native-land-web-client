@@ -8,6 +8,8 @@ jobs:
       - run: |
           yarn install --frozen-lockfile
           yarn lint
+      - name: Prettier
+        run: yarn prettier . --check
   build:
     runs-on: ubuntu-latest
     steps:
