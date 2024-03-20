@@ -6,6 +6,7 @@ import {
   MapLayerMouseEvent,
   Source,
 } from "react-map-gl";
+import { useSearchParams } from "react-router-dom";
 
 import Box from "@mui/system/Box";
 
@@ -53,7 +54,9 @@ const startingPositions = [
   { longitude: -68.5546875, latitude: -19.973348786110602 }, // pica, chile
 ];
 
-const getRandomStartingPosition = () => {
+const getRandomStartingCoordinates = () => {
+  // not entirely sure why this is necessary
+  // legacy code from the WordPress site
   if (window.innerWidth < 500) {
     return {
       longitude: -103.4216601,
@@ -124,13 +127,33 @@ export default function FrontPageMap({
   const hoveredFeatureNames = getFeatureNames(hoveredFeatures); // array of feature names for the hovered features' layer filter
   const selectedFeatureNames = getFeatureNames(selectedFeatures);
 
+  //  get the latitude and longitude from the URL search params
+  //    eg. http://native-land.ca/?longitude=-100.1953125&latitude=47.27922900257082
+  //  this was instated for testing purposes, so that we could force a load of the map at a specific location
+  const [searchParams] = useSearchParams();
+
+  const longitudeParam = searchParams.get("longitude");
+  const latitudeParam = searchParams.get("latitude");
+
+  // get the starting position for the map.
+  //   if the URL has a longitude and latitude, use that
+  //   otherwise, use a random starting position
+  const startingCoordinates =
+    longitudeParam && latitudeParam
+      ? {
+          longitude: Number(longitudeParam),
+          latitude: Number(latitudeParam),
+          zoom: 2.5,
+        }
+      : getRandomStartingCoordinates();
+
   return (
     <>
       <Map
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
         fog={{}} // defaults to starry background
         initialViewState={{
-          ...getRandomStartingPosition(),
+          ...startingCoordinates,
         }}
         interactiveLayerIds={["territories", mapboxTerritoriesTilesetName]}
         mapStyle={`mapbox://styles/nativeland/${
