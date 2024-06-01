@@ -16,8 +16,12 @@ import MapLegend from "./MapLegend";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // for handling onHover feature highlights
-const mapboxTerritoriesTilesetName = import.meta.env
-  .VITE_TERRITORIES_TILESET_NAME;
+const mapboxTerritoriesTilesetName =
+  import.meta.env.VITE_TERRITORIES_TILESET_NAME ||
+  import.meta.env.STORYBOOK_TERRITORIES_TILESET_NAME;
+// VITE_ prefixed env vars: production, development
+// STORYBOOK_ prefixed env vars: chromatic in CI & storybook
+// VITE_ prefixed vars aren't available in storybook environment, see storybook docs
 
 // template FillLayer to create highlight layers for hovered, selected, etc. without repeating code
 const highlightLayerBase = {
@@ -150,14 +154,18 @@ export default function FrontPageMap({
   return (
     <>
       <Map
-        mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
+        mapboxAccessToken={
+          import.meta.env.VITE_MAPBOX_TOKEN ||
+          import.meta.env.STORYBOOK_MAPBOX_TOKEN
+        }
         fog={{}} // defaults to starry background
         initialViewState={{
           ...startingCoordinates,
         }}
         interactiveLayerIds={["territories", mapboxTerritoriesTilesetName]}
         mapStyle={`mapbox://styles/nativeland/${
-          import.meta.env.VITE_MAPBOX_STYLE
+          import.meta.env.VITE_MAPBOX_STYLE ||
+          import.meta.env.STORYBOOK_MAPBOX_STYLE
         }`}
         onClick={handleClick}
         onMouseMove={highlightPolygons}
@@ -166,7 +174,7 @@ export default function FrontPageMap({
       >
         <Source
           type="vector"
-          url={`mapbox://${import.meta.env.VITE_TERRITORIES_TILESET_URL}`}
+          url={`mapbox://${import.meta.env.VITE_TERRITORIES_TILESET_URL || import.meta.env.STORYBOOK_TERRITORIES_TILESET_URL}`}
         >
           <Layer
             {...selectedHighlightLayer}

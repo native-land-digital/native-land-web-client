@@ -1,0 +1,27 @@
+name: "Chromatic"
+
+on: push
+
+jobs:
+  chromatic:
+    name: chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: install dependencies
+        run: yarn install --frozen-lockfile
+      - name: run chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        env:
+          STORYBOOK_MAPBOX_TOKEN: ${{ secrets.STORYBOOK_MAPBOX_TOKEN }}
+          STORYBOOK_MAPBOX_STYLE: ${{ secrets.STORYBOOK_MAPBOX_STYLE }}
+          STORYBOOK_TERRITORIES_TILESET_URL: ${{ secrets.STORYBOOK_TERRITORIES_TILESET_URL }}
+          STORYBOOK_TERRITORIES_TILESET_NAME: ${{ secrets.STORYBOOK_TERRITORIES_TILESET_NAME }}
