@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "postinstall": "husky",
     "precommit": "lint-staged",
-    "lint-command": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint-command": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -43,6 +45,15 @@
     "stylelint-no-unsupported-browser-features": "^8.0.1"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^2.0.2",
+    "@storybook/addon-essentials": "^8.3.1",
+    "@storybook/addon-interactions": "^8.3.1",
+    "@storybook/addon-links": "^8.3.1",
+    "@storybook/addon-onboarding": "^8.3.1",
+    "@storybook/blocks": "^8.3.1",
+    "@storybook/react": "^8.3.1",
+    "@storybook/react-vite": "^8.3.1",
+    "@storybook/test": "^8.3.1",
     "@types/express": "^4.17.21",
     "@types/geojson": "^7946.0.13",
     "@types/node": "^20.10.0",
@@ -51,13 +62,17 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "chromatic": "^11.4.1",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-storybook": "^0.8.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "3.2.4",
+    "storybook": "^8.3.1",
+    "storybook-addon-remix-react-router": "^3.0.0",
     "stylelint": "^16.2.1",
     "stylelint-config-recess-order": "^5.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
